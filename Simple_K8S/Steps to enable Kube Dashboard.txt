@@ -1,0 +1,25 @@
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
+
+go to another CMD window, run below command:
+
+kubectl proxy
+
+Then get token from kube dashboard
+
+kubectl -n kube-system describe secret default
+
+use token id to run below command: (replace ${TOKEN} with real token id)
+
+kubectl config set-credentials docker-for-desktop --token="${TOKEN}"
+
+Update image template version:
+kubectl set image deployment/client-deployment client=wuxfsh/multi-client:v5
+
+clean up docker images/cache
+
+C:\SAP\cloud Foundation\Simple_K8S>docker system prune -a
+WARNING! This will remove:
+        - all stopped containers
+        - all networks not used by at least one container
+        - all images without at least one container associated to them
+        - all build cache
